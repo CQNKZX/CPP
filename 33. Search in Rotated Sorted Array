@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        return rs(nums, 0, nums.size() - 1, target);
+    }
+    
+    // recursive search in a rotated (strictly increasing) array.
+    int rs(vector<int>& nums, int i, int j, int target){
+        if (j-i < 2){
+            if(nums[i] == target) return i;
+            else if (nums[j] == target) return j;
+            else return -1;
+        }
+        int l = i, r = j;
+        int k = i + (j-i)/2;
+        if(nums[k] > nums[l] && nums[k] > nums[r]){
+            int a = bs(nums, l, k, target);
+            int b = rs(nums, k, r, target);
+            return max(a, b);
+        }
+        else{
+            int a = bs(nums, k, r, target);
+            int b = rs(nums, l, k, target);
+            return max(a, b);
+        }
+    }
+    
+    // binary search in a sorted array.
+    int bs(vector<int>& nums, int i, int j, int target){
+        int l = i, r = j, k;
+        while(r - l >= 2){
+            k = l + (r-l)/2;
+            if (nums[k] == target) return k;
+            else if (nums[k] > target) r = k;
+            else l = k;
+        }
+        if(nums[r] == target) return r;
+        else if (nums[l] == target) return l;
+        else return -1;
+    }
+
+};

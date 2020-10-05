@@ -1,0 +1,39 @@
+// minor modification from <Spiral Matrix>
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        vector<vector<int>> out{};
+        if(n < 1) return out;
+        // allocate storage
+        for(int i = 0; i < n; ++i){
+            vector<int> row(n);
+            out.push_back(row);
+        }
+        // fill the matrix with elements
+        int flag{0}; // mode 4 flag that determines direction.
+        int count{1}; // element to be filled in.
+        int l{0}, r = n; // left, right
+        int t{0}, b = n; // top, bottom
+        // start iteration, going clockwise
+        while (count < n*n + 1){
+            if(flag == 0){
+                for(int i = l; i < r; ++i){out[t][i] = count++;}
+                ++t;
+            }
+            else if(flag == 1){
+                for(int i = t; i < b; ++i){out[i][r-1] = count++;}
+                --r;
+            }
+            else if(flag == 2){
+                for(int i = r-1; i >= l; --i){out[b-1][i] = count++;}
+                --b;
+            }
+            else{
+                for(int i = b-1; i >= t; --i){out[i][l] = count++;}
+                ++l;
+            }
+            flag = (++flag) % 4;
+        }
+        return out;
+    }
+};

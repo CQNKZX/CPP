@@ -1,0 +1,23 @@
+// standard divide and conquer
+class Solution {
+public:
+    int maxProfit(vector<int>& p) {
+        int n = p.size();
+        if (n < 2) return 0;
+        return dac(p, 0, n-1);
+        
+    }
+    
+    int dac(vector<int>& p, int i, int j){
+        if (j - i < 2) return max(p[j] - p[i], 0);
+        int out{0};
+        int l{i}, r{j}, m{i + (j-i)/2};
+        out = max(out, dac(p, l, m)); // left half
+        out = max(out, dac(p, m, r)); // right half
+        int a{p[l]}, b{p[r]}; // across middle
+        while(++l < m){a = min(a, p[l]);}
+        while(--r > m){b = max(b, p[r]);}
+        out = max(out, b - a);
+        return out;
+    }
+};

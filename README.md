@@ -1,3 +1,3 @@
-# Leetcode
+# Leetcode Fun
 
-Problems I have solved on Leetcode.
+Problems I have solved on Leetcode using C++..

@@ -21,3 +21,5 @@ public:
         return out;
     }
 };
+
+// one pass solution exists: find lowest price and look to the right, you will find the max profit with 100% confidence.

@@ -9,7 +9,7 @@ public:
     }
     
     int dac(vector<int>& p, int i, int j){
-        if (j - i < 2) return max(p[j] - p[i], 0);
+        if (j - i < 2) return max(p[j] - p[i], 0); // base case
         int out{0};
         int l{i}, r{j}, m{i + (j-i)/2};
         out = max(out, dac(p, l, m)); // left half

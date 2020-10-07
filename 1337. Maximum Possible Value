@@ -1,0 +1,45 @@
+// Lintcode (not Leetcode)
+class Solution {
+public:
+    /**
+     * @param N: an integer
+     * @return: returns the maximum possible value obtained by inserting one '5' digit
+     */
+    int MaximumPossibleValue(int N) {
+        // write your code here
+        int sign = (N >= 0) ? 1 : -1;
+        N = (N >= 0) ? N : -N;
+        vector<int> digit{};
+        do{
+            digit.push_back(N%10);
+            N = N / 10;
+        }while(N != 0);
+        int len = digit.size(), out{0}, j{len-1};
+        if(sign == 1){
+            while(digit[j] >= 5){
+                out += digit[j] * pow(10, j+1);
+                --j;
+            }
+            out += 5 * pow(10, j+1);
+            while(j > -1){
+                out += digit[j] * pow(10, j);
+                --j;
+            }
+        }
+        else{
+            while(digit[j] <= 5){
+                out += digit[j] * pow(10, j+1);
+                --j;
+            }
+            out += (j > -1) ? 5 * pow(10, j+1) : 5;
+            while(j > -1){
+                out += digit[j] * pow(10, j);
+                --j;
+            }
+            out = -out;
+            
+        }
+        return out;
+        
+    }
+};

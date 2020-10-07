@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int maxLength(vector<string>& arr) {
+        // remove unqualified elements
+        vector<set<char>> a{};
+        for(auto e : arr){
+            set<char> temp(e.begin(), e.end());
+            if(temp.size() == e.size()) a.push_back(temp);
+        }
+        set<char> s{}; // state
+        int out{0};
+        // depth first search
+        dfs(a, s, 0, out); //dfs
+        return out;
+    }
+    
+    void dfs(vector<set<char>> &a, set<char> s, int i, int &len){
+        for(int j = i; j < a.size(); ++j){
+            set<char> temp{s};
+            temp.insert(a[j].begin(), a[j].end());
+            int q = temp.size();
+            if( q == s.size() + a[j].size()){
+                len = (q > len) ? q : len;
+                dfs(a, temp, j+1, len);
+            }
+        }
+        
+    }
+};

@@ -20,4 +20,4 @@ public:
         return sk.empty();
         }
 };
-
+// I got stuck cuz I didn't think stack.

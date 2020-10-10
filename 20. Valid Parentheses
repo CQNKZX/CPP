@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool isValid(string s) {
+        // size must be even.
+        int n = s.size();
+        if(n == 0) return true;
+        if(n%2 == 1) return false;
+        // cancel from middle. unless reach the end, not valid!.
+        stack<char> sk{};
+        for(int i = 0; i < n; ++i){
+            if(s[i] == '(' || s[i] == '[' || s[i] == '{') sk.push(s[i]);
+            else{
+                if(s[i] == ')' && sk.top() == '(') sk.pop();
+                else if (s[i] == ']' && sk.top() == '[') sk.pop();
+                else if (s[i] == '}' && sk.top() == '{') sk.pop();
+                else return false;
+            }
+        }
+        if(sk.empty()) return true;
+        else return false;
+        }
+};

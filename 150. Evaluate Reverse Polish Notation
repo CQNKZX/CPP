@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int evalRPN(vector<string>& t) {
+        int n = t.size();
+        if(n < 2) return stoi(t[0]); // trivial
+        stack<int> sk;
+        int f, s;
+        for(int i = 0; i < n; ++i){
+            if(t[i] != "+" && t[i] !="-" && t[i] != "*" && t[i] != "/") sk.push(stoi(t[i]));
+            else{
+                s = sk.top(); sk.pop();
+                f = sk.top(); sk.pop();
+                if(t[i] == "+") sk.push(f+s);
+                if(t[i] == "-") sk.push(f-s);
+                if(t[i] == "*") sk.push(f*s);
+                if(t[i] == "/") sk.push(f/s);
+            }
+        }
+        return sk.top();
+    }
+};
+// Now I get stack.

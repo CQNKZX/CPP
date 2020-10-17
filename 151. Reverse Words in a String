@@ -1,0 +1,22 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        string out;
+        int i = s.size() - 1;
+        int ed;
+        while(i > -1){
+            if(s[i] == ' '){--i;}
+            else{
+                ed = i;
+                while(i > -1 && s[i] != ' '){--i;} // note order of logic!
+                out += s.substr(i+1, ed-i);
+                out += ' ';
+                cout << s.substr(i+1, ed-i) << endl;
+            }
+        }
+
+        if(out.size() > 0) out.pop_back();
+        return out;
+    }
+};
+// never allow your index to be negative!

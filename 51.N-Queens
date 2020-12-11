@@ -1,0 +1,26 @@
+// Solve N-Queens problem using backtracking
+class Solution {
+public:
+    void helper(vector<vector<string>> &out, vector<string> &bd, vector<int> &col, vector<int> &dg, vector<int> &odg, int i){
+        int n=bd.size();
+        if(i==n){out.push_back(bd);} // valid layout.
+        // check every positions of the ith row.
+        else{
+            for(int k=0; k<n; ++k){
+                if(col[k] == 1 || dg[n-1+k-i] == 1|| odg[i+k]==1) continue; // check column and diagonal directions.
+                // backtracking
+                bd[i][k] = 'Q'; col[k] = 1; dg[n-1+k-i] = 1; odg[k+i] = 1;
+                helper(out, bd, col, dg, odg, i+1);
+                bd[i][k] = '.'; col[k] = 0; dg[n-1+k-i] = 0; odg[k+i] = 0;
+            }
+        }
+    }
+
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>> out{};
+        vector<string> bd(n, string(n,'.'));
+        vector<int> col(n,0), dg(2*n-1,0), odg(2*n-1,0);
+        helper(out, bd, col, dg, odg, 0);
+        return out;
+    }
+};
